@@ -16,14 +16,14 @@ calculateBankPwr (n:xn) [] = n + 10 * calculateBankPwr xn []
 calculateBankPwr num (x:xs) = calculateBankPwr (insertJolt x (length xs) num) xs
 
 insertJolt :: Int -> Int -> [Int] -> [Int]
-insertJolt x r [n] = [if r >= 0 then max n x else n]
-insertJolt x r (n:n2:xn)
-                  | r == 0 = max x n : n2 : xn
-                  | x > n2 = (-1) : insertJolt x (r - 1) (n2:xn)
-                  | x > n = x : n2 : xn
-                  | otherwise = n : n2 : xn
+insertJolt x r [n] = [max n x]
+insertJolt x r (n:nn:xn)
+                  | r == 0 = max x n : nn : xn
+                  | x > nn = (-1) : insertJolt x (r - 1) (nn:xn)
+                  | x > n = x : nn : xn
+                  | otherwise = n : nn : xn
 
-
+-- First exercise
 -- calculateBankPwr :: Int -> Int -> [Int] -> Int
 -- calculateBankPwr fst snd [x] = fst * 10 + max x snd
 -- calculateBankPwr fst snd (x:xs)
